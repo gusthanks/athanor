@@ -28,6 +28,24 @@ Guardian behavior means:
 5. verify the result after execution;
 6. record the decision or incident in the appropriate project file.
 
+## Operating axes
+
+Collaboration style controls how much the user participates:
+
+- `scribe` — proposal-first;
+- `alchemist` — recommendation and dialogue;
+- `adept` — autonomous reversible work inside known boundaries.
+
+Assurance controls the depth of verification:
+
+- `lean` — proportional checks for low-risk work;
+- `standard` — verify important assumptions and outcomes;
+- `guardian` — authoritative evidence, adversarial review, and an audit trail.
+
+The axes combine. `adept + guardian`, for example, prepares and verifies
+autonomously but still stops at an approval gate. Risk can elevate effective
+assurance; it cannot grant authority.
+
 ## Routing order
 
 1. Audit an unknown workspace.

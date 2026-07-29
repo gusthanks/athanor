@@ -47,7 +47,7 @@ needed. `review` and `skip` are never mutated.
 - encrypted, personal, legal, financial, or credential-related material;
 - paths already participating in deployment or automation.
 
-High-risk rows require human review even in Adept mode.
+High-risk rows require human review even with the Adept collaboration style.
 
 ## Naming
 

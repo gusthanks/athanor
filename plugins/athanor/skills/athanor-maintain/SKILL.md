@@ -1,6 +1,6 @@
 ---
 name: athanor-maintain
-description: Maintain an Athanor project operating system by validating required files, repairing stale paths and duplicate truth, curating decisions and memory, checking tool and integration freshness, and propagating corrections. Use after project changes, migrations, agent drift, contradictory documentation, or periodic governance review.
+description: Maintain and close work in an Athanor project operating system by validating required files, repairing stale paths and duplicate truth, distilling completed work into durable decisions or memory, checking tool and integration freshness, and propagating corrections. Use after project changes, completed tasks, session handoffs, migrations, agent drift, contradictory documentation, incidents, or periodic governance review.
 ---
 
 # Athanor Maintain
@@ -56,6 +56,30 @@ them.
 Memory records verified reusable learning, not a diary. Promote shared facts to
 canonical documents. Remove or correct contradicted memory. Never store secrets.
 
+## Distill completed work
+
+When a task, incident, or meaningful session ends, read
+`references/distillation.md`. Classify the residue before writing:
+
+- durable decision → `DECISIONS.md`;
+- canonical fact or invariant → its canonical owner, often `PROJECT.md`;
+- tested tool behavior → `TOOLS.md`;
+- connection or authorization state → `INTEGRATIONS.md`;
+- risk, incident, or safeguard → `RISKS.md`;
+- future work or dependency → `TASKS.md`;
+- verified agent-specific lesson → `memory/`;
+- no durable value → write nothing.
+
+Update the current handoff in `TASKS.md` when work pauses. Do not turn routine
+activity into permanent memory.
+
+## Preserve a session boundary
+
+When context may reset or another agent must continue, read
+`references/checkpoints.md` and use the bundled checkpoint script. Keep
+checkpoints append-only and secret-free. On resume, treat the checkpoint as a
+pointer to current canonical sources, not as current truth by itself.
+
 ## Deliver
 
 Report:
@@ -63,5 +87,6 @@ Report:
 - validations passed and failed;
 - stale or contradictory claims;
 - corrections applied;
+- knowledge distilled and deliberately discarded;
 - human decisions still needed;
 - next review date in `YYYY-MM-DD`.

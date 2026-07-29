@@ -43,6 +43,12 @@ No Windows:
 Use `-Target all` para instalar em todos os runtimes suportados. Claude e
 Antigravity recebem links para esta única fonte, evitando cópias desatualizadas.
 
+Diagnostique a fonte e todas as instalações sem alterar o workspace:
+
+```powershell
+.\install.ps1 -Target all -Action doctor
+```
+
 Depois, invoque:
 
 ```text
@@ -83,9 +89,11 @@ metadados de interface e um manifesto de plugin. Leia
 
 ## Estado
 
-Versão `0.2.0`: distribuição multi-IA funcional para Codex, Claude Code e
-Google Antigravity. Consulte o [changelog](CHANGELOG.md) e a
-[matriz de compatibilidade](docs/COMPATIBILITY.md).
+Versão `0.3.0`: diagnóstico de instalação, atualização segura dos runtimes,
+configuração independente de colaboração e garantia, checkpoints, destilação
+de conhecimento e dependências leves entre tarefas. Consulte o
+[changelog](CHANGELOG.md) e a [matriz de
+compatibilidade](docs/COMPATIBILITY.md).
 
 ## Licença
 

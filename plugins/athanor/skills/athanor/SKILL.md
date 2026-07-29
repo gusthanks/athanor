@@ -10,8 +10,10 @@ agent roster fits every workspace.
 
 ## Start safely
 
-1. Locate and read the nearest applicable `AGENTS.md`, `CLAUDE.md`, or other
-   project instructions before inspecting or changing files.
+1. Establish the target workspace before loading project instructions. Read
+   `AGENTS.md`, `CLAUDE.md`, or equivalents only when they live inside the
+   target or a verified parent scope that owns it. Never import instructions
+   merely because they belong to the launcher shell's current directory.
 2. Identify the workspace boundary. Treat nested repositories, vaults, media
    libraries, and parent portfolios as distinct objects until evidence links
    them.
@@ -27,17 +29,27 @@ agent roster fits every workspace.
    working directory. Use a runtime-provided skill-directory variable when one
    exists.
 
-## Select interaction mode
+## Select operating settings
 
-Use the user's saved mode when one exists. Otherwise use **Alchemist**.
+Treat collaboration and assurance as independent choices. Use saved project
+settings when they exist.
+
+Collaboration style defaults to **Alchemist**:
 
 - **Scribe:** explain, propose, and ask before any write.
 - **Alchemist:** recommend and collaborate on structural choices.
 - **Adept:** minimize questions and perform reversible, in-scope work.
-- **Guardian:** add evidence, adversarial review, and auditability.
 
-Interaction mode never disables approval gates. Read
-`references/system-map.md` for the full safety and routing model.
+Assurance defaults to **Standard**:
+
+- **Lean:** keep checks proportional for low-risk, reversible work.
+- **Standard:** validate important assumptions and results.
+- **Guardian:** add authoritative evidence, adversarial review, and auditability.
+
+Escalate the effective assurance level to Guardian for sensitive work without
+silently changing the saved preference. Lean assurance and Adept collaboration
+never disable approval gates. Read `references/system-map.md` for the full
+safety and routing model.
 
 ## Route the request
 

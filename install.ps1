@@ -4,14 +4,16 @@ param(
     [ValidateSet("codex", "claude", "antigravity", "agents", "all")]
     [string]$Target,
 
-    [ValidateSet("install", "status", "uninstall")]
+    [ValidateSet("install", "status", "refresh", "doctor", "uninstall")]
     [string]$Action = "install",
 
     [ValidateSet("link", "copy")]
     [string]$Method = "link",
 
     [switch]$DryRun,
-    [switch]$Yes
+    [switch]$Yes,
+    [string]$ProjectRoot,
+    [switch]$CheckUpdates
 )
 
 $installer = Join-Path $PSScriptRoot "scripts\install_athanor.py"
@@ -29,6 +31,14 @@ if ($DryRun) {
 
 if ($Yes) {
     $arguments += "--yes"
+}
+
+if ($ProjectRoot) {
+    $arguments += @("--project-root", $ProjectRoot)
+}
+
+if ($CheckUpdates) {
+    $arguments += "--check-updates"
 }
 
 & python @arguments

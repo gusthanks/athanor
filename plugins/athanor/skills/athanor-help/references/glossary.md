@@ -1,6 +1,14 @@
 # Glossary
 
 - **Athanor:** the installable project operating-system toolkit.
+- **Collaboration style:** how much the user participates: Scribe, Alchemist,
+  or Adept.
+- **Assurance level:** how deeply work is checked: Lean, Standard, or Guardian.
+- **Doctor:** read-only diagnosis of the Athanor source, runtime installations,
+  and optionally a project OS.
+- **Checkpoint:** append-only session handoff; not a backup or canonical truth.
+- **Distillation:** deliberate routing of useful completed-work residue into
+  decisions, tasks, tools, integrations, risks, canonical facts, or memory.
 - **Nigredo:** read-only discovery and diagnosis.
 - **Albedo:** consolidation of structure and sources of truth.
 - **Citrinitas:** design of agents, handoffs, and capabilities.

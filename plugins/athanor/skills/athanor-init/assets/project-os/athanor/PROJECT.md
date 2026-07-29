@@ -26,6 +26,15 @@ Last reviewed: {{DATE}}
 
 - [UNKNOWN]
 
+## Project invariants
+
+Keep this list short. These are project-specific rules that should not change
+without an explicit decision.
+
+| Invariant | Why it exists | Change authority |
+| --- | --- | --- |
+| [UNKNOWN] | [UNKNOWN] | [UNKNOWN] |
+
 ## Brand foundations
 
 - Positioning: [UNKNOWN]

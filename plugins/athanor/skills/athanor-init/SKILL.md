@@ -9,7 +9,8 @@ Create the minimum useful operating system for the project.
 
 ## Before writing
 
-1. Read applicable project instructions.
+1. Establish the target root, then read only instructions applicable to that
+   root. Do not inherit unrelated instructions from the launcher directory.
 2. Run or reuse an `$athanor-audit` inventory.
 3. Identify existing equivalents of project identity, decisions, tasks, tools,
    integrations, risks, agent roster, and memory.
@@ -42,8 +43,9 @@ merge note instead of replacing it.
 After scaffolding:
 
 - put stable identity and source hierarchy in `athanor/PROJECT.md`;
+- put project-specific non-negotiable invariants in `PROJECT.md`;
 - put human decisions with date and provenance in `DECISIONS.md`;
-- put open work only in `TASKS.md`;
+- put open work, dependencies, and the current handoff in `TASKS.md`;
 - put verified capabilities and last-check dates in `TOOLS.md`;
 - put external connections and authorization state in `INTEGRATIONS.md`;
 - put ownership and handoffs in `ROSTER.md`;
@@ -55,4 +57,5 @@ question when evidence is missing.
 ## Stop condition
 
 Finish when a new agent can identify the project, locate authoritative sources,
-find current work, understand approval gates, and know which unknowns remain.
+find ready and blocked work, understand approval gates, and know which unknowns
+remain.

@@ -9,7 +9,9 @@ import json
 from pathlib import Path
 
 
-MODES = ("scribe", "alchemist", "adept", "guardian")
+COLLABORATION_STYLES = ("scribe", "alchemist", "adept")
+ASSURANCE_LEVELS = ("lean", "standard", "guardian")
+LEGACY_MODES = (*COLLABORATION_STYLES, "guardian")
 
 
 def parse_args() -> argparse.Namespace:
@@ -18,33 +20,102 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("root", type=Path, help="Project root")
     parser.add_argument("--name", required=True, help="Human-readable project name")
-    parser.add_argument("--mode", choices=MODES, default="alchemist")
+    settings = parser.add_mutually_exclusive_group()
+    settings.add_argument(
+        "--collaboration",
+        choices=COLLABORATION_STYLES,
+        help="How much the user participates; defaults to alchemist",
+    )
+    settings.add_argument(
+        "--mode",
+        choices=LEGACY_MODES,
+        help="Deprecated v1 alias; guardian maps to alchemist + guardian",
+    )
+    parser.add_argument(
+        "--assurance",
+        choices=ASSURANCE_LEVELS,
+        default=None,
+        help="Verification depth; defaults to standard",
+    )
     parser.add_argument(
         "--apply", action="store_true", help="Create missing files and directories"
     )
     return parser.parse_args()
 
 
-def render_template(source: Path, project_name: str, mode: str) -> str:
+def normalize_settings(
+    mode: str | None,
+    collaboration: str | None = None,
+    assurance: str | None = None,
+) -> tuple[str, str]:
+    selected = collaboration or mode or "alchemist"
+    if selected == "guardian":
+        selected = "alchemist"
+        assurance = assurance or "guardian"
+    if selected not in COLLABORATION_STYLES:
+        raise ValueError(f"Unsupported collaboration style: {selected}")
+    assurance = assurance or "standard"
+    if assurance not in ASSURANCE_LEVELS:
+        raise ValueError(f"Unsupported assurance level: {assurance}")
+    return selected, assurance
+
+
+def render_template(
+    source: Path,
+    project_name: str,
+    collaboration: str,
+    assurance: str,
+) -> str:
     text = source.read_text(encoding="utf-8")
     return (
         text.replace("{{PROJECT_NAME}}", project_name)
         .replace("{{DATE}}", dt.date.today().isoformat())
-        .replace("{{MODE}}", mode)
+        .replace("{{COLLABORATION_STYLE}}", collaboration)
+        .replace("{{ASSURANCE_LEVEL}}", assurance)
     )
 
 
-def scaffold(root: Path, project_name: str, mode: str, apply: bool) -> dict:
+def require_contained_target(root: Path, target: Path) -> None:
+    resolved = target.resolve(strict=False)
+    try:
+        resolved.relative_to(root)
+    except ValueError as exc:
+        raise ValueError(
+            f"Refusing to follow a link outside the project root: {target} -> "
+            f"{resolved}"
+        ) from exc
+
+
+def scaffold(
+    root: Path,
+    project_name: str,
+    mode: str | None,
+    apply: bool,
+    *,
+    collaboration: str | None = None,
+    assurance: str | None = None,
+) -> dict:
     root = root.expanduser().resolve()
+    collaboration, assurance = normalize_settings(mode, collaboration, assurance)
     template_root = Path(__file__).resolve().parent.parent / "assets" / "project-os"
     if not template_root.is_dir():
         raise FileNotFoundError(f"Template directory not found: {template_root}")
     if root.exists() and not root.is_dir():
         raise NotADirectoryError(f"Project root is not a directory: {root}")
 
+    sources = sorted(path for path in template_root.rglob("*") if path.is_file())
+    for source in sources:
+        require_contained_target(root, root / source.relative_to(template_root))
+    for relative in (
+        "athanor/agents",
+        "athanor/memory",
+        "athanor/BOOTSTRAP-MERGE.md",
+    ):
+        require_contained_target(root, root / relative)
+
     operations: list[dict[str, str]] = []
     conflicts: list[str] = []
-    for source in sorted(path for path in template_root.rglob("*") if path.is_file()):
+    for source in sources:
         relative = source.relative_to(template_root)
         target = root / relative
         if target.exists():
@@ -56,7 +127,10 @@ def scaffold(root: Path, project_name: str, mode: str, apply: bool) -> dict:
         operations.append({"action": "create", "path": relative.as_posix()})
         if apply:
             target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(render_template(source, project_name, mode), encoding="utf-8")
+            target.write_text(
+                render_template(source, project_name, collaboration, assurance),
+                encoding="utf-8",
+            )
 
     for relative_dir in ("athanor/agents", "athanor/memory"):
         target_dir = root / relative_dir
@@ -89,7 +163,8 @@ def scaffold(root: Path, project_name: str, mode: str, apply: bool) -> dict:
         "mode": "apply" if apply else "preview",
         "root": str(root),
         "project_name": project_name,
-        "collaboration_mode": mode,
+        "collaboration_style": collaboration,
+        "assurance_level": assurance,
         "operations": operations,
         "summary": {
             "create": sum(
@@ -102,7 +177,14 @@ def scaffold(root: Path, project_name: str, mode: str, apply: bool) -> dict:
 
 def main() -> int:
     args = parse_args()
-    result = scaffold(args.root, args.name.strip(), args.mode, args.apply)
+    result = scaffold(
+        args.root,
+        args.name.strip(),
+        args.mode,
+        args.apply,
+        collaboration=args.collaboration,
+        assurance=args.assurance,
+    )
     print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0
 

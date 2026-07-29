@@ -5,7 +5,7 @@
 1. [O que é](#o-que-é)
 2. [Instalação](#instalação)
 3. [Como começar](#como-começar)
-4. [Modos de interação](#modos-de-interação)
+4. [Colaboração e garantia](#colaboração-e-garantia)
 5. [As fases do trabalho](#as-fases-do-trabalho)
 6. [O que o Athanor diagnostica](#o-que-o-athanor-diagnostica)
 7. [Organização segura](#organização-segura)
@@ -15,6 +15,7 @@
 11. [Aprovações e segurança](#aprovações-e-segurança)
 12. [Datas](#datas)
 13. [Ajuda](#ajuda)
+14. [Saúde, atualização e continuidade](#saúde-atualização-e-continuidade)
 
 ## O que é
 
@@ -56,25 +57,41 @@ O primeiro resultado deve conter:
 5. recomendação de próximo ritual;
 6. ações que exigem decisão humana.
 
-## Modos de interação
+## Colaboração e garantia
 
-### Scribe
+São dois controles independentes.
+
+### Estilo de colaboração
+
+#### Scribe
 
 Explica conceitos, mostra opções e não altera o projeto sem confirmação.
 
-### Alchemist
+#### Alchemist
 
 Pesquisa, recomenda e dialoga nas escolhas estruturais. É o modo padrão.
 
-### Adept
+#### Adept
 
 Usa o melhor julgamento disponível, faz poucas perguntas e executa mudanças
 locais reversíveis. Não ignora gates de risco.
 
-### Guardian
+### Nível de garantia
+
+#### Lean
+
+Mantém verificações proporcionais em trabalho local, reversível e de baixo
+risco.
+
+#### Standard
+
+Valida premissas e resultados importantes. É o padrão.
+
+#### Guardian
 
 Adiciona evidência, revisão adversarial e trilha de auditoria. Entra
-automaticamente em assuntos sensíveis.
+automaticamente em assuntos sensíveis, independentemente do estilo de
+colaboração salvo.
 
 ## As fases do trabalho
 
@@ -174,6 +191,10 @@ Memória particular é a fonte mais fraca. Fatos compartilhados sobem para a
 fonte canônica; decisões entram em `DECISIONS.md`; trabalho entra em
 `TASKS.md`; capacidade de ferramenta entra em `TOOLS.md`.
 
+Ao concluir trabalho significativo, o Maintain destila o resíduo: decisão,
+fato canônico, comportamento testado de ferramenta, integração, risco, trabalho
+futuro, aprendizado particular ou nada. Atividade rotineira não vira memória.
+
 ## Integrações
 
 O Athanor começa pelo resultado desejado e compara:
@@ -222,3 +243,23 @@ Usar `YYYY-MM-DD` na interface, nos arquivos, nos logs e nos dados estruturados.
 Invoque `$athanor-help` e diga o que está confuso. O módulo deve explicar o
 conceito no nível do usuário, relacioná-lo ao projeto atual e sugerir uma única
 próxima ação segura.
+
+## Saúde, atualização e continuidade
+
+O Doctor agrega versão da fonte, branch e estado do Git, integridade de links ou
+cópias, registros de instalação, cache do Codex e, opcionalmente, a validação de
+um Project OS. Ele não produz uma nota universal.
+
+Uma atualização tem duas etapas distintas:
+
+1. atualizar a fonte canônica após revisar o Doctor;
+2. atualizar o cache ou a cópia de cada runtime.
+
+O Athanor recusa atualização automática destrutiva. Use somente fast-forward em
+uma árvore limpa, revise o changelog e depois execute `refresh`. Cópias recebem
+backup; links apenas renovam seu registro; o Codex reinstala o cache. Inicie uma
+nova sessão.
+
+Quando o contexto for interrompido, um checkpoint append-only registra objetivo,
+IDs de tarefas e decisões, verificação, bloqueios e próxima ação. Ele aponta
+para fontes canônicas atuais; não substitui Git ou backup.

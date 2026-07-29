@@ -10,6 +10,7 @@
 | Automatic semantic activation | yes | yes | yes | host-dependent |
 | Direct invocation | `$skill` | `/skill` | mention by name | prompt-dependent |
 | Athanor installer | plugin | global links | global links | not guaranteed |
+| Doctor and refresh | supported | supported | supported | manual |
 
 ## Portable core
 
@@ -30,9 +31,10 @@ ignored by other hosts.
 - Claude Code discovers global skills under `~/.claude/skills/`.
 - Antigravity discovers global skills under `~/.gemini/config/skills/`.
 
-The installers adapt discovery only. They do not rewrite Athanor's workflow,
-copy project knowledge between brands, or grant tools and permissions a runtime
-does not already possess.
+The runtime adapter registry drives install roots, status, refresh behavior, and
+restart guidance. The installers do not rewrite Athanor's workflow, copy
+project knowledge between brands, or grant tools and permissions a runtime does
+not already possess.
 
 ## Generic AI limitation
 

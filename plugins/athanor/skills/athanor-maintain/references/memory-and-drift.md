@@ -38,3 +38,9 @@ If private memory conflicts with a stronger source, correct the memory.
 - stale integration authorization;
 - generated file edited by hand;
 - summary that contradicts code or a canonical document.
+
+## Closing work
+
+Distill completed work instead of accumulating narrative memory. Route durable
+residue to its canonical owner, update the current handoff when pausing, and
+discard routine activity. Read `distillation.md` for the routing table.

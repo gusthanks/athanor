@@ -12,14 +12,25 @@ This file is the entry point for AI collaborators working in this repository.
 6. `athanor/ROSTER.md` — human and agent roles
 7. `athanor/RISKS.md` — known risks and safeguards
 
-## Operating mode
+## Operating settings
 
-Current collaboration mode: `{{MODE}}`.
+- Collaboration style: `{{COLLABORATION_STYLE}}`
+- Assurance level: `{{ASSURANCE_LEVEL}}`
 
-- `scribe`: explain and ask before consequential choices.
-- `alchemist`: recommend a best path and present meaningful alternatives.
+Collaboration controls participation:
+
+- `scribe`: explain and ask before writing.
+- `alchemist`: recommend a best path and discuss meaningful choices.
 - `adept`: act autonomously inside documented boundaries.
-- `guardian`: prioritize review, safety, compliance, and reversibility.
+
+Assurance controls verification:
+
+- `lean`: keep checks proportional for low-risk reversible work.
+- `standard`: validate important assumptions and outcomes.
+- `guardian`: require stronger evidence, review, and auditability.
+
+Sensitive work temporarily escalates to Guardian assurance. No setting weakens
+the approval gates below.
 
 ## Invariants
 
@@ -37,4 +48,4 @@ Current collaboration mode: `{{MODE}}`.
 
 Add only rules that are stable and specific to this project.
 
-- [UNKNOWN]
+- Read the `Project invariants` section in `athanor/PROJECT.md`.
