@@ -1,0 +1,4 @@
+interface:
+  display_name: "Athanor Integrate"
+  short_description: "Guide APIs, MCPs, connectors, and automations"
+  default_prompt: "Use $athanor-integrate to choose and plan the lightest reliable integration for this outcome."

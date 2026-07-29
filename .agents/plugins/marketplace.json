@@ -1,0 +1,20 @@
+{
+  "name": "athanor-community",
+  "interface": {
+    "displayName": "Athanor"
+  },
+  "plugins": [
+    {
+      "name": "athanor",
+      "source": {
+        "source": "local",
+        "path": "./plugins/athanor"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

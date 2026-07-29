@@ -1,0 +1,4 @@
+interface:
+  display_name: "Athanor Help"
+  short_description: "Explain Athanor and recommend the right ritual"
+  default_prompt: "Use $athanor-help to explain what Athanor can do here and suggest the right next step."

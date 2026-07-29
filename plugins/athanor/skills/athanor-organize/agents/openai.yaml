@@ -1,0 +1,4 @@
+interface:
+  display_name: "Athanor Organize"
+  short_description: "Plan and apply reversible file organization safely"
+  default_prompt: "Use $athanor-organize to propose a safe folder and naming plan before changing files."

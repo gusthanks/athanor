@@ -1,0 +1,4 @@
+interface:
+  display_name: "Athanor Audit"
+  short_description: "Find project strengths, gaps, risks, and priorities"
+  default_prompt: "Use $athanor-audit to assess this project and produce an evidence-based gap map."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Athanor Maintain"
+  short_description: "Keep project memory accurate, current, and coherent"
+  default_prompt: "Use $athanor-maintain to validate and refresh the operating memory for this project."

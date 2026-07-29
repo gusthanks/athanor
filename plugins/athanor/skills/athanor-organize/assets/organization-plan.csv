@@ -1,0 +1,2 @@
+id,action,source,destination,reason,confidence,risk,approved
+ORG-001,move,current/path/example.md,proposed/path/example.md,Example only,low,low,false

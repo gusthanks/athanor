@@ -1,0 +1,35 @@
+{
+  "name": "athanor",
+  "version": "0.1.0",
+  "description": "Transform scattered projects into governed, auditable operating systems with safe organization, preservation, agent design, and integration guidance.",
+  "author": {
+    "name": "gautr.wav"
+  },
+  "license": "MIT",
+  "keywords": [
+    "project-operations",
+    "knowledge-management",
+    "agent-teams",
+    "governance",
+    "organization"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Athanor",
+    "shortDescription": "Turn projects into living operating systems.",
+    "longDescription": "Audit, structure, preserve, staff, integrate, and maintain projects with progressive guidance and explicit safety gates.",
+    "developerName": "gautr.wav",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write",
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Use Athanor to diagnose this project.",
+      "Help me organize this workspace safely.",
+      "Show me what this project needs next."
+    ],
+    "brandColor": "#5B3FD6"
+  }
+}

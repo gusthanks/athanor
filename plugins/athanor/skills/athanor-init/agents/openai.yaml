@@ -1,0 +1,4 @@
+interface:
+  display_name: "Athanor Init"
+  short_description: "Create durable project context without overwriting"
+  default_prompt: "Use $athanor-init to bootstrap a safe project operating system in this workspace."

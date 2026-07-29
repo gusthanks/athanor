@@ -1,0 +1,14 @@
+{
+  "schema_version": "1",
+  "project_name": "{{PROJECT_NAME}}",
+  "created": "{{DATE}}",
+  "date_format": "YYYY-MM-DD",
+  "mode": "{{MODE}}",
+  "language": "auto",
+  "safety": {
+    "dry_run_by_default": true,
+    "overwrite_existing_files": false,
+    "require_backup_ack_for_moves": true,
+    "require_human_review_for_high_risk": true
+  }
+}

@@ -1,0 +1,36 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dependencies
+node_modules/
+vendor/
+.venv/
+venv/
+
+# Generated output
+dist/
+build/
+coverage/
+.next/
+.nuxt/
+
+# Caches and temporary files
+__pycache__/
+*.py[cod]
+.cache/
+.pytest_cache/
+*.tmp
+*.temp
+*.log
+*.swp
+*.idlk
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+
+# Review project-specific media, exports, and personal data before adding rules.

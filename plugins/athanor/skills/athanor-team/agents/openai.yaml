@@ -1,0 +1,4 @@
+interface:
+  display_name: "Athanor Team"
+  short_description: "Design a minimal human and AI team with clear roles"
+  default_prompt: "Use $athanor-team to design the smallest useful agent team and its handoffs."

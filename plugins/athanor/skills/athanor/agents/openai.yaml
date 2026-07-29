@@ -1,0 +1,4 @@
+interface:
+  display_name: "Athanor"
+  short_description: "Build a safe operating system for any project"
+  default_prompt: "Use $athanor to assess this project and guide the safest useful next step."

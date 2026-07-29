@@ -1,0 +1,4 @@
+interface:
+  display_name: "Athanor Chronicle"
+  short_description: "Plan Git, GitHub, backups, secrets, and large files"
+  default_prompt: "Use $athanor-chronicle to decide what belongs in Git and how the rest should be preserved."
