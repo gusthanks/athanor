@@ -9,10 +9,12 @@ Assess evidence, not the aesthetic neatness of the folder tree.
 
 ## Inventory
 
+Resolve `<skill-directory>` as the directory containing this `SKILL.md`.
+
 Run the read-only scanner:
 
 ```bash
-python scripts/scan_project.py <project-root> --output <report-directory>
+python <skill-directory>/scripts/scan_project.py <project-root> --output <report-directory>
 ```
 
 The scanner reads paths and metadata by default. It does not print secret

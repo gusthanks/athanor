@@ -20,10 +20,12 @@ Read `references/preservation-model.md`.
 
 ## Assess
 
+Resolve `<skill-directory>` as the directory containing this `SKILL.md`.
+
 Run:
 
 ```bash
-python scripts/repository_advisor.py <project-root> --output <report-directory>
+python <skill-directory>/scripts/repository_advisor.py <project-root> --output <report-directory>
 ```
 
 Review the generated candidate groups. The script uses conservative filename,

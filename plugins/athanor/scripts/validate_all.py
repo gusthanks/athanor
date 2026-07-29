@@ -46,9 +46,12 @@ def main() -> int:
             if not manifest.get(key):
                 failures.append(f"Plugin manifest missing {key}")
 
-    scripts = sorted(plugin_root.glob("skills/*/scripts/*.py")) + [
-        Path(__file__).resolve()
-    ]
+    repository_root = plugin_root.parents[1]
+    scripts = (
+        sorted(plugin_root.glob("skills/*/scripts/*.py"))
+        + sorted((repository_root / "scripts").glob("*.py"))
+        + [Path(__file__).resolve()]
+    )
     for script in scripts:
         try:
             py_compile.compile(str(script), doraise=True)

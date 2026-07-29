@@ -19,16 +19,18 @@ Create the minimum useful operating system for the project.
 
 ## Scaffold safely
 
+Resolve `<skill-directory>` as the directory containing this `SKILL.md`.
+
 Preview:
 
 ```bash
-python scripts/scaffold_project.py <project-root> --name "<project name>"
+python <skill-directory>/scripts/scaffold_project.py <project-root> --name "<project name>"
 ```
 
 Apply only after reviewing the preview:
 
 ```bash
-python scripts/scaffold_project.py <project-root> --name "<project name>" --apply
+python <skill-directory>/scripts/scaffold_project.py <project-root> --name "<project name>" --apply
 ```
 
 The script creates missing files only. It does not overwrite `AGENTS.md`,

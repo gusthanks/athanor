@@ -30,7 +30,20 @@ só então executa o que foi autorizado.
 
 Leia o [Handbook](docs/HANDBOOK.md) para entender o sistema sem depender de uma
 IA. Veja [Instalação](docs/INSTALLATION.md) para adicionar o plugin ao Codex a
-partir desta pasta ou de um clone do GitHub. Depois, invoque:
+partir desta pasta ou de um clone do GitHub.
+
+No Windows:
+
+```powershell
+.\install.ps1 -Target codex
+.\install.ps1 -Target claude
+.\install.ps1 -Target antigravity
+```
+
+Use `-Target all` para instalar em todos os runtimes suportados. Claude e
+Antigravity recebem links para esta única fonte, evitando cópias desatualizadas.
+
+Depois, invoque:
 
 ```text
 $athanor
@@ -48,6 +61,7 @@ Use $athanor para diagnosticar este projeto e me dizer o que falta.
 - Git é opcional e só é necessário para o módulo Chronicle.
 - Nenhum MCP, API ou serviço pago é obrigatório.
 - Datas e nomes datados usam `YYYY-MM-DD`.
+- Codex, Claude Code e Google Antigravity são suportados pelos instaladores.
 
 ## O que existe além do `SKILL.md`
 
@@ -69,8 +83,9 @@ metadados de interface e um manifesto de plugin. Leia
 
 ## Estado
 
-Versão `0.1.0`: fundação funcional e testada, ainda aberta a aprendizado em
-projetos diversos. Consulte o [changelog](CHANGELOG.md).
+Versão `0.2.0`: distribuição multi-IA funcional para Codex, Claude Code e
+Google Antigravity. Consulte o [changelog](CHANGELOG.md) e a
+[matriz de compatibilidade](docs/COMPATIBILITY.md).
 
 ## Licença
 
