@@ -21,6 +21,12 @@ heavy enterprise operating framework.
   only after understanding the outcome and missing capability.
 - **Memory has provenance:** canonical project truth outranks summaries and
   agent-private learning.
+- **Autonomy and assurance are separate:** a user can request autonomous work
+  with Guardian verification or collaborative work with Lean ceremony.
+- **Health without theatre:** the doctor reports evidence as pass, warning,
+  failure, or unknown rather than inventing a universal project score.
+- **Learning is distilled:** completed work becomes durable knowledge only
+  when it is verified, reusable, and routed to a canonical owner.
 - **Mystical vocabulary, plain artifacts:** the experience can feel ritualistic
   without obscuring files, logs, or governance from humans and other agents.
 

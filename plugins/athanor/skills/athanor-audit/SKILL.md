@@ -9,6 +9,10 @@ Assess evidence, not the aesthetic neatness of the folder tree.
 
 ## Inventory
 
+Establish the target root before reading project instructions. Load only
+instructions inside that root or a verified owning parent; ignore unrelated
+launcher-directory instructions.
+
 Resolve `<skill-directory>` as the directory containing this `SKILL.md`.
 
 Run the read-only scanner:

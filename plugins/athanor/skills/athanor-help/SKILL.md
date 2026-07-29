@@ -1,6 +1,6 @@
 ---
 name: athanor-help
-description: Explain Athanor, project operations, Git, agents, memory, APIs, MCP, organization, or the next safe step in plain language. Use when a user is confused, new to AI-assisted project work, asks what a term means, wants a guided tour, or needs contextual help choosing among Athanor modules.
+description: Explain Athanor, project operations, installation health, safe updates, Git, agents, memory, APIs, MCP, organization, or the next safe step in plain language. Use when a user is confused, new to AI-assisted project work, asks what a term means, wants a guided tour, needs installation diagnostics, or needs contextual help choosing among Athanor modules.
 ---
 
 # Athanor Help
@@ -19,6 +19,17 @@ Teach in context instead of reciting the whole framework.
 7. Offer deeper detail only after the immediate question is answered.
 
 Read `references/glossary.md` when the question concerns Athanor terminology.
+
+For installation or update health, resolve the Athanor repository root and run:
+
+```bash
+python <athanor-repository>/scripts/install_athanor.py \
+  --target all --action doctor
+```
+
+Use `--check-updates` only when the user asked for a current remote check. The
+doctor does not alter the working tree. Explain warnings and recommend the
+smallest safe action; do not disguise an unknown runtime state as healthy.
 
 ## Never use help to smuggle in a mutation
 

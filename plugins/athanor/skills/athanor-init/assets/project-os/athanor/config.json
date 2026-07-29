@@ -1,9 +1,10 @@
 {
-  "schema_version": "1",
+  "schema_version": "2",
   "project_name": "{{PROJECT_NAME}}",
   "created": "{{DATE}}",
   "date_format": "YYYY-MM-DD",
-  "mode": "{{MODE}}",
+  "collaboration_style": "{{COLLABORATION_STYLE}}",
+  "assurance_level": "{{ASSURANCE_LEVEL}}",
   "language": "auto",
   "safety": {
     "dry_run_by_default": true,

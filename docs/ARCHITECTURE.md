@@ -48,7 +48,8 @@ athanor/
 ├── ORGANIZATION-REVIEW.md
 ├── config.json
 ├── agents/
-└── memory/
+├── memory/
+└── checkpoints/           # created only when a session checkpoint is saved
 ```
 
 Existing files are never overwritten by default. In an established project,
@@ -67,16 +68,26 @@ entrypoint that already exists.
 
 Lower layers must not override higher layers.
 
-## Safety model
+## Operating settings and safety
 
-Interaction mode controls how much the user participates. Risk gates control
-what requires approval. These are independent.
+Collaboration style controls participation:
 
-- **Scribe** — guided, explanatory, proposal-only.
+- **Scribe** — guided, explanatory, proposal-first.
 - **Alchemist** — collaborative; recommended default.
 - **Adept** — minimal questions for reversible, in-scope actions.
-- **Guardian** — high-assurance review for sensitive domains.
 
-Guardian gates apply regardless of interaction mode to external publication,
-spending, deletion, credentials, personal data, legal commitments, and
-production changes.
+Assurance controls verification:
+
+- **Lean** — proportional checks for low-risk reversible work.
+- **Standard** — validate important assumptions and outcomes.
+- **Guardian** — authoritative evidence, adversarial review, and auditability.
+
+Risk gates control authority and remain independent of both axes. Sensitive
+work elevates effective assurance to Guardian. External publication, spending,
+deletion, credentials, personal data, legal commitments, and production
+changes still require their exact approval gate.
+
+Schema-v1 projects remain valid. The migration mapping is:
+
+- Scribe, Alchemist, or Adept → the same collaboration style + Standard;
+- Guardian → Alchemist + Guardian.

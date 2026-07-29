@@ -14,6 +14,20 @@ Create only:
 Do not create departments, agents, or folders without current work to justify
 them.
 
+## Project constitution
+
+Keep universal Athanor safety rules in the root agent instructions. Record only
+project-specific non-negotiables in the `Project invariants` section of
+`athanor/PROJECT.md`. Give each invariant an owner and a condition for changing
+it. Do not add a separate constitution file when the project charter can remain
+the canonical owner.
+
+## Work dependencies
+
+Use stable task IDs. A task is ready only when its referenced dependencies are
+done. Keep this model in Markdown until the project has enough concurrent work
+to justify a dedicated issue graph.
+
 ## Existing project rule
 
 Map equivalent files before creating anything. A project may use `PROJECT.md`,

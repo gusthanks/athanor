@@ -3,6 +3,10 @@ from __future__ import annotations
 import csv
 import importlib.util
 import json
+import argparse
+import concurrent.futures
+import os
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -34,6 +38,9 @@ repository_advisor = load_module(
 validate_project_os = load_module(
     "validate_project_os", "athanor-maintain/scripts/validate_project_os.py"
 )
+checkpoint = load_module(
+    "checkpoint", "athanor-maintain/scripts/checkpoint.py"
+)
 
 
 class ScaffoldTests(unittest.TestCase):
@@ -59,8 +66,54 @@ class ScaffoldTests(unittest.TestCase):
             )
             self.assertEqual(config["project_name"], "Example Project")
             self.assertEqual(config["date_format"], "YYYY-MM-DD")
+            self.assertEqual(config["schema_version"], "2")
+            self.assertEqual(config["collaboration_style"], "alchemist")
+            self.assertEqual(config["assurance_level"], "standard")
             self.assertTrue((root / "athanor" / "BOOTSTRAP-MERGE.md").exists())
             self.assertGreater(applied["summary"]["skip"], 0)
+
+    def test_legacy_guardian_maps_to_two_axes(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            scaffold_project.scaffold(root, "Guarded Project", "guardian", True)
+            config = json.loads(
+                (root / "athanor" / "config.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(config["collaboration_style"], "alchemist")
+            self.assertEqual(config["assurance_level"], "guardian")
+
+    def test_scaffold_refuses_link_outside_project_root(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            root = base / "project"
+            outside = base / "outside"
+            root.mkdir()
+            outside.mkdir()
+            linked = root / "athanor"
+            if os.name == "nt":
+                completed = subprocess.run(
+                    [
+                        "cmd.exe",
+                        "/d",
+                        "/c",
+                        "mklink",
+                        "/J",
+                        str(linked),
+                        str(outside),
+                    ],
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(completed.returncode, 0, completed.stderr)
+            else:
+                linked.symlink_to(outside, target_is_directory=True)
+
+            with self.assertRaises(ValueError):
+                scaffold_project.scaffold(
+                    root, "Contained Project", "alchemist", True
+                )
+            self.assertFalse((outside / "PROJECT.md").exists())
+            self.assertFalse((root / "AGENTS.md").exists())
 
 
 class AuditTests(unittest.TestCase):
@@ -161,6 +214,35 @@ class ChronicleTests(unittest.TestCase):
 
 
 class MaintenanceTests(unittest.TestCase):
+    def test_config_root_must_be_an_object(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            scaffold_project.scaffold(root, "Invalid Config", "alchemist", True)
+            (root / "athanor" / "config.json").write_text(
+                "[]\n", encoding="utf-8"
+            )
+
+            result = validate_project_os.validate(root)
+
+            self.assertFalse(result["valid"])
+            self.assertIn(
+                "Invalid athanor/config.json: root must be an object",
+                result["errors"],
+            )
+
+    def test_escaped_pipe_in_task_cell_is_parsed(self):
+        text = """# Work Ledger
+
+| ID | Outcome | Owner | Status | Depends on | Next action | Evidence | Updated |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| TASK-001 | Compare A \| B | Ada | done | — | Complete | doc \| review | 2026-07-29 |
+"""
+        rows, warnings = validate_project_os.parse_task_table(text)
+        self.assertEqual(warnings, [])
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["Outcome"], "Compare A | B")
+        self.assertEqual(rows[0]["Evidence"], "doc | review")
+
     def test_scaffold_validates_with_unknown_warnings(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -168,6 +250,143 @@ class MaintenanceTests(unittest.TestCase):
             result = validate_project_os.validate(root)
             self.assertTrue(result["valid"])
             self.assertTrue(result["warnings"])
+
+    def test_schema_v1_remains_valid_with_migration_warning(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            scaffold_project.scaffold(root, "Legacy Project", "alchemist", True)
+            config_path = root / "athanor" / "config.json"
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+            config["schema_version"] = "1"
+            config["mode"] = "guardian"
+            config.pop("collaboration_style")
+            config.pop("assurance_level")
+            config_path.write_text(
+                json.dumps(config, indent=2) + "\n", encoding="utf-8"
+            )
+            result = validate_project_os.validate(root)
+            self.assertTrue(result["valid"])
+            self.assertTrue(
+                any("schema v1" in warning for warning in result["warnings"])
+            )
+
+    def test_task_dependency_cycle_is_reported(self):
+        text = """# Work Ledger
+
+| ID | Outcome | Owner | Status | Depends on | Next action | Evidence | Updated |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| TASK-001 | First | A | blocked | TASK-002 | Wait | x | 2026-07-29 |
+| TASK-002 | Second | B | blocked | TASK-001 | Wait | x | 2026-07-29 |
+"""
+        warnings = validate_project_os.task_warnings(text)
+        self.assertTrue(any("cycle" in warning.lower() for warning in warnings))
+
+    def test_duplicate_task_id_is_reported(self):
+        text = """# Work Ledger
+
+| ID | Outcome | Owner | Status | Depends on | Next action | Evidence | Updated |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| TASK-001 | First | A | ready | — | Work | x | 2026-07-29 |
+| TASK-001 | Duplicate | B | blocked | TASK-002 | Wait | x | 2026-07-29 |
+"""
+        warnings = validate_project_os.task_warnings(text)
+        self.assertIn("Duplicate task ID: TASK-001", warnings)
+
+
+class CheckpointTests(unittest.TestCase):
+    def args(self, **overrides):
+        values = {
+            "goal": "Continue the pilot",
+            "next_action": "Review TASK-002",
+            "slug": None,
+            "completed": ["TASK-001 done"],
+            "remaining": ["TASK-002"],
+            "blocker": [],
+            "decision": ["DEC-001"],
+            "task": ["TASK-002"],
+            "path": ["athanor/TASKS.md"],
+            "verification": ["validator passed"],
+        }
+        values.update(overrides)
+        return argparse.Namespace(**values)
+
+    def test_checkpoint_is_append_only_and_restorable(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "athanor").mkdir()
+            first = checkpoint.save_checkpoint(root, self.args())
+            second = checkpoint.save_checkpoint(root, self.args())
+            self.assertNotEqual(first["path"], second["path"])
+            listed = checkpoint.list_checkpoints(root)
+            self.assertEqual(len(listed["checkpoints"]), 2)
+            restored = checkpoint.restore_checkpoint(root, None)
+            self.assertEqual(restored["path"], str(Path(second["path"]).resolve()))
+            self.assertIn("Exact next action", restored["content"])
+
+    def test_checkpoint_rejects_secret_assignment(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "athanor").mkdir()
+            with self.assertRaises(ValueError):
+                checkpoint.save_checkpoint(
+                    root,
+                    self.args(completed=["API_KEY=do-not-store"]),
+                )
+            with self.assertRaises(ValueError):
+                checkpoint.save_checkpoint(
+                    root,
+                    self.args(completed=["Authorization: Bearer not-a-real-token"]),
+                )
+            with self.assertRaises(ValueError):
+                checkpoint.save_checkpoint(
+                    root,
+                    self.args(slug="password=do-not-store"),
+                )
+
+    def test_concurrent_checkpoints_never_overwrite(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "athanor").mkdir()
+            with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+                results = list(
+                    executor.map(
+                        lambda _: checkpoint.save_checkpoint(root, self.args()),
+                        range(8),
+                    )
+                )
+            paths = {result["path"] for result in results}
+            self.assertEqual(len(paths), 8)
+            self.assertTrue(all(Path(path).is_file() for path in paths))
+
+    def test_checkpoint_refuses_link_outside_project_root(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            root = base / "project"
+            outside = base / "outside"
+            root.mkdir()
+            outside.mkdir()
+            linked = root / "athanor"
+            if os.name == "nt":
+                completed = subprocess.run(
+                    [
+                        "cmd.exe",
+                        "/d",
+                        "/c",
+                        "mklink",
+                        "/J",
+                        str(linked),
+                        str(outside),
+                    ],
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(completed.returncode, 0, completed.stderr)
+            else:
+                linked.symlink_to(outside, target_is_directory=True)
+
+            with self.assertRaises(ValueError):
+                checkpoint.save_checkpoint(root, self.args())
+            self.assertFalse((outside / "checkpoints").exists())
 
 
 if __name__ == "__main__":
