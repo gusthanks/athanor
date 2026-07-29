@@ -22,6 +22,10 @@ agent roster fits every workspace.
 5. Use `YYYY-MM-DD` everywhere.
 6. Respond in the user's language unless the project has a documented language
    requirement. Keep filenames and structured status values stable and clear.
+7. Resolve relative references, assets, and scripts from the directory
+   containing the active `SKILL.md`, never from the target project's current
+   working directory. Use a runtime-provided skill-directory variable when one
+   exists.
 
 ## Select interaction mode
 

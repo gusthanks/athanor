@@ -9,10 +9,12 @@ Keep the operating system smaller and truer over time.
 
 ## Validate structure
 
+Resolve `<skill-directory>` as the directory containing this `SKILL.md`.
+
 Run:
 
 ```bash
-python scripts/validate_project_os.py <project-root>
+python <skill-directory>/scripts/validate_project_os.py <project-root>
 ```
 
 Fix structural errors before adding new documentation.

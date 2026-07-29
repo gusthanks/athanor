@@ -43,16 +43,18 @@ Show:
 
 ## Coagula
 
+Resolve `<skill-directory>` as the directory containing this `SKILL.md`.
+
 Validate or simulate a plan:
 
 ```bash
-python scripts/apply_plan.py <project-root> <plan.csv>
+python <skill-directory>/scripts/apply_plan.py <project-root> <plan.csv>
 ```
 
 Apply only after explicit approval and a verified backup:
 
 ```bash
-python scripts/apply_plan.py <project-root> <plan.csv> --apply --ack-backup
+python <skill-directory>/scripts/apply_plan.py <project-root> <plan.csv> --apply --ack-backup
 ```
 
 For editable binary formats or rows marked `risk=high`, require a separate
