@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "description": "Transform scattered projects into governed, auditable operating systems with safe organization, preservation, agent design, and integration guidance.",
   "author": {
-    "name": "gautr.wav"
+    "name": "gautr.wav",
+    "url": "https://github.com/gusthanks"
   },
+  "homepage": "https://github.com/gusthanks/athanor#readme",
+  "repository": "https://github.com/gusthanks/athanor",
   "license": "MIT",
   "keywords": [
     "project-operations",

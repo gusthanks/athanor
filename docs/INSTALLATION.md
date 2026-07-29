@@ -30,13 +30,10 @@ codex plugin list
 ## Install from a future GitHub clone
 
 ```powershell
-git clone <repository-url> athanor
+git clone https://github.com/gusthanks/athanor.git athanor
 codex plugin marketplace add <absolute-path-to-athanor>
 codex plugin add athanor@athanor-community
 ```
-
-The repository URL is intentionally left as a placeholder until an official
-public remote exists.
 
 ## Other compatible agents
 
