@@ -1,5 +1,7 @@
 # Athanor Handbook
 
+[English](HANDBOOK.md) | **Português (Brasil)**
+
 ## Sumário
 
 1. [O que é](#o-que-é)
@@ -37,14 +39,17 @@ software, empresa, marca, idioma ou fornecedor de IA.
 
 ## Instalação
 
-O pacote é um plugin Codex com skills portáveis baseadas no formato
-`SKILL.md`. As instruções completas estão em
-[`INSTALLATION.md`](INSTALLATION.md). Nenhuma API ou conexão MCP é obrigatória
+O pacote é um plugin para Codex e Claude Code com skills portáveis baseadas no
+formato `SKILL.md`. No Claude Code, instale com
+`/plugin marketplace add gusthanks/athanor` e
+`/plugin install athanor@athanor-community`. As instruções completas estão em
+[`INSTALLATION.md`](INSTALLATION.md) (em inglês). Nenhuma API ou conexão MCP é obrigatória
 para instalar o núcleo.
 
 ## Como começar
 
-Invoque `$athanor` no diretório que deseja compreender. A primeira passagem é
+Invoque `$athanor` (Codex) ou `/athanor:athanor` (plugin do Claude Code) no
+diretório que deseja compreender. A primeira passagem é
 somente leitura. O sistema identifica o tipo de workspace, procura instruções
 existentes e evita perguntar algo que possa descobrir com segurança.
 
@@ -240,7 +245,7 @@ Usar `YYYY-MM-DD` na interface, nos arquivos, nos logs e nos dados estruturados.
 
 ## Ajuda
 
-Invoque `$athanor-help` e diga o que está confuso. O módulo deve explicar o
+Invoque `$athanor-help` (ou `/athanor:athanor-help` no Claude Code) e diga o que está confuso. O módulo deve explicar o
 conceito no nível do usuário, relacioná-lo ao projeto atual e sugerir uma única
 próxima ação segura.
 

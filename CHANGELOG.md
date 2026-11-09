@@ -2,8 +2,23 @@
 
 All dates use `YYYY-MM-DD`.
 
-## 0.3.0 — 2026-07-29
+## 0.3.0 — 2026-11-09
 
+- Added a native Claude Code plugin: `.claude-plugin/marketplace.json` and
+  `plugins/athanor/.claude-plugin/plugin.json`. Install with
+  `/plugin marketplace add gusthanks/athanor` and
+  `/plugin install athanor@athanor-community`.
+- Extended `validate_all.py` to check that the Codex and Claude Code manifests
+  agree.
+- Rewrote the README in English with a concrete pitch and a 30-second quick
+  start; the Portuguese version moved to `README.pt-BR.md`.
+- Translated the Handbook to English; the Portuguese original is now
+  `docs/HANDBOOK.pt-BR.md`.
+- Added a GitHub Actions workflow that runs the tests and the plugin validator.
+- Set the copyright holder to Gustavo Costa (gusthx) in `LICENSE` and the plugin
+  manifests.
+- Fixed an invalid escape sequence warning in the test suite and used neutral
+  example paths.
 - Separated collaboration style (`scribe`, `alchemist`, `adept`) from assurance
   level (`lean`, `standard`, `guardian`) with schema-v1 compatibility.
 - Added project invariants without introducing another competing source file.

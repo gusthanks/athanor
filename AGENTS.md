@@ -8,9 +8,12 @@ as a Codex plugin with multiple cooperating skills.
 ## Sources of truth
 
 - Product overview: `README.md`
-- User guide: `docs/HANDBOOK.md`
+- Portuguese overview: `README.pt-BR.md` (keep in sync with `README.md`)
+- User guide: `docs/HANDBOOK.md` (Portuguese: `docs/HANDBOOK.pt-BR.md`)
 - Architecture: `docs/ARCHITECTURE.md`
-- Plugin manifest: `plugins/athanor/.codex-plugin/plugin.json`
+- Codex plugin manifest: `plugins/athanor/.codex-plugin/plugin.json`
+- Claude Code plugin manifest: `plugins/athanor/.claude-plugin/plugin.json`
+  and marketplace `.claude-plugin/marketplace.json` (keep versions in sync)
 - Runtime instructions: `plugins/athanor/skills/*/SKILL.md`
 
 ## Working rules
@@ -24,6 +27,8 @@ as a Codex plugin with multiple cooperating skills.
 - Keep organization dry-run by default, plan-first, collision-safe, and auditable.
 - Never print secret values or read secret-file contents for classification.
 - Prefer Python standard-library implementations for portable local utilities.
+- Write code, skills, docs, and commits in English first; translations live in
+  `*.pt-BR.md` files.
 
 ## Verification
 
