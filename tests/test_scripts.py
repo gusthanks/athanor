@@ -231,7 +231,7 @@ class MaintenanceTests(unittest.TestCase):
             )
 
     def test_escaped_pipe_in_task_cell_is_parsed(self):
-        text = """# Work Ledger
+        text = r"""# Work Ledger
 
 | ID | Outcome | Owner | Status | Depends on | Next action | Evidence | Updated |
 | --- | --- | --- | --- | --- | --- | --- | --- |

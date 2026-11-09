@@ -293,7 +293,7 @@ class CodexInstallerTests(unittest.TestCase):
             if "marketplace list" in command:
                 stdout = (
                     "MARKETPLACE ROOT\n"
-                    "athanor-community Q:\\\\gustavo\\\\athanor\n"
+                    "athanor-community C:\\\\src\\\\athanor\n"
                 )
             else:
                 stdout = (

@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "description": "Transform scattered projects into governed, auditable operating systems with safe organization, preservation, agent design, and integration guidance.",
   "author": {
-    "name": "gautr.wav",
+    "name": "Gustavo Costa (gusthx)",
     "url": "https://github.com/gusthanks"
   },
   "homepage": "https://github.com/gusthanks/athanor#readme",
@@ -21,7 +21,7 @@
     "displayName": "Athanor",
     "shortDescription": "Turn projects into living operating systems.",
     "longDescription": "Audit, structure, preserve, staff, integrate, and maintain projects with progressive guidance and explicit safety gates.",
-    "developerName": "gautr.wav",
+    "developerName": "Gustavo Costa (gusthx)",
     "category": "Productivity",
     "capabilities": [
       "Read",
