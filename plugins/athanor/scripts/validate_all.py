@@ -37,6 +37,7 @@ def main() -> int:
             failures.append(f"{skill_file.parent}: missing agents/openai.yaml")
 
     manifest_path = plugin_root / ".codex-plugin" / "plugin.json"
+    manifest: dict = {}
     try:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
@@ -47,6 +48,32 @@ def main() -> int:
                 failures.append(f"Plugin manifest missing {key}")
 
     repository_root = plugin_root.parents[1]
+    claude_manifest_path = plugin_root / ".claude-plugin" / "plugin.json"
+    claude_marketplace_path = repository_root / ".claude-plugin" / "marketplace.json"
+    try:
+        claude_manifest = json.loads(claude_manifest_path.read_text(encoding="utf-8"))
+        claude_marketplace = json.loads(
+            claude_marketplace_path.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        failures.append(f"Invalid Claude Code plugin metadata: {exc}")
+    else:
+        codex_version = manifest.get("version")
+        if claude_manifest.get("name") != "athanor":
+            failures.append("Claude Code plugin manifest must be named athanor")
+        if claude_manifest.get("version") != codex_version:
+            failures.append("Claude Code and Codex manifest versions differ")
+        entries = {
+            entry.get("name"): entry
+            for entry in claude_marketplace.get("plugins", [])
+        }
+        entry = entries.get("athanor")
+        if not entry:
+            failures.append("Claude Code marketplace does not list athanor")
+        elif (repository_root / entry.get("source", "")).resolve() != plugin_root:
+            failures.append("Claude Code marketplace source does not point here")
+        elif entry.get("version") not in (None, codex_version):
+            failures.append("Claude Code marketplace version differs")
     scripts = (
         sorted(plugin_root.glob("skills/*/scripts/*.py"))
         + sorted((repository_root / "scripts").glob("*.py"))
@@ -65,7 +92,7 @@ def main() -> int:
         return 1
     print(
         f"Athanor validation passed: {len(skills)} skills, "
-        f"{len(scripts)} Python scripts, valid plugin manifest."
+        f"{len(scripts)} Python scripts, valid Codex and Claude Code manifests."
     )
     return 0
 

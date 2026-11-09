@@ -1,0 +1,19 @@
+{
+  "name": "athanor",
+  "version": "0.3.0",
+  "description": "Agent skills that audit any project folder and give it durable context, tasks, decisions, and safe, dry-run-first reorganization.",
+  "author": {
+    "name": "Gustavo Costa (gusthx)",
+    "url": "https://github.com/gusthanks"
+  },
+  "homepage": "https://github.com/gusthanks/athanor#readme",
+  "repository": "https://github.com/gusthanks/athanor",
+  "license": "MIT",
+  "keywords": [
+    "project-operations",
+    "context-engineering",
+    "agents-md",
+    "agent-teams",
+    "organization"
+  ]
+}

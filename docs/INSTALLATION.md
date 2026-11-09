@@ -46,7 +46,7 @@ Run the richer read-only doctor:
 Include a project-OS validation:
 
 ```powershell
-.\install.ps1 -Target all -Action doctor -ProjectRoot Q:\path\to\project
+.\install.ps1 -Target all -Action doctor -ProjectRoot C:\src\my-project
 ```
 
 ## macOS and Linux quick start
@@ -74,7 +74,7 @@ Doctor:
 The installer performs:
 
 ```powershell
-codex plugin marketplace add Q:\path\to\athanor
+codex plugin marketplace add C:\src\athanor
 codex plugin add athanor@athanor-community
 ```
 
@@ -93,6 +93,32 @@ $athanor
 ```
 
 ## Claude Code
+
+### Native plugin (recommended)
+
+No clone and no installer script. Inside Claude Code:
+
+```text
+/plugin marketplace add gusthanks/athanor
+/plugin install athanor@athanor-community
+```
+
+Claude Code reads `.claude-plugin/marketplace.json` at the repository root and
+installs the plugin from `plugins/athanor`. Plugin skills are namespaced, so the
+entry point is:
+
+```text
+/athanor:athanor
+```
+
+The other modules follow the same pattern, for example `/athanor:athanor-audit`.
+Update with `/plugin marketplace update athanor-community`. Remove with
+`/plugin uninstall athanor@athanor-community`.
+
+Do not combine the native plugin with the linked skill installation below;
+pick one, or Claude Code will list every module twice.
+
+### Linked skills (from a clone)
 
 The default linked installation exposes every Athanor skill under:
 

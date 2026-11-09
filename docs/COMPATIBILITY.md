@@ -8,9 +8,9 @@
 | Supporting references and assets | native | native | native | usually manual |
 | Bundled Python scripts | native with shell | native with shell | native with shell | tool-dependent |
 | Automatic semantic activation | yes | yes | yes | host-dependent |
-| Direct invocation | `$skill` | `/skill` | mention by name | prompt-dependent |
-| Athanor installer | plugin | global links | global links | not guaranteed |
-| Doctor and refresh | supported | supported | supported | manual |
+| Direct invocation | `$skill` | `/athanor:skill` (plugin) or `/skill` (linked) | mention by name | prompt-dependent |
+| Athanor installer | plugin | native plugin or global links | global links | not guaranteed |
+| Doctor and refresh | supported | supported for linked installs; `/plugin` for the native plugin | supported | manual |
 
 ## Portable core
 
@@ -28,7 +28,9 @@ ignored by other hosts.
 ## Runtime-specific layer
 
 - Codex uses `.codex-plugin/plugin.json` and the repository marketplace.
-- Claude Code discovers global skills under `~/.claude/skills/`.
+- Claude Code installs the native plugin from `.claude-plugin/marketplace.json`
+  and `plugins/athanor/.claude-plugin/plugin.json`, or discovers linked global
+  skills under `~/.claude/skills/`.
 - Antigravity discovers global skills under `~/.gemini/config/skills/`.
 
 The runtime adapter registry drives install roots, status, refresh behavior, and

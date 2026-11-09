@@ -1,0 +1,20 @@
+{
+  "name": "athanor-community",
+  "owner": {
+    "name": "Gustavo Costa (gusthx)",
+    "url": "https://github.com/gusthanks"
+  },
+  "metadata": {
+    "description": "Athanor: a project operating system for people and agent teams."
+  },
+  "plugins": [
+    {
+      "name": "athanor",
+      "source": "./plugins/athanor",
+      "description": "Audit any project folder and give it durable context, tasks, decisions, and safe, dry-run-first reorganization.",
+      "version": "0.3.0",
+      "license": "MIT",
+      "category": "productivity"
+    }
+  ]
+}
